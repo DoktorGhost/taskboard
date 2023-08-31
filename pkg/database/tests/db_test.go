@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"taskboard/pkg/database"
 	"testing"
 
 	_ "github.com/lib/pq"
@@ -15,9 +16,9 @@ func TestCreateTables(t *testing.T) {
 	}
 	defer db.Close()
 
-	DB = db
+	database.DB = db
 
-	CreateTables()
+	database.CreateTables()
 
 	// Проверка, что таблицы были созданы
 	expectedTables := []string{"users", "roles", "user_roles", "tasks", "comments"}
@@ -37,7 +38,7 @@ func TestCreateTables(t *testing.T) {
 
 func TestInitDB(t *testing.T) {
 	// Тестируем инициализацию базы данных
-	db := InitDB()
+	db := database.InitDB()
 
 	// Проверяем, что база данных успешно инициализировалась
 	if db == nil {

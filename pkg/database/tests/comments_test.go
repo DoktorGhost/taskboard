@@ -1,16 +1,17 @@
 package database
 
 import (
+	"taskboard/pkg/database"
 	"taskboard/pkg/structs"
 	"testing"
 	"time"
 )
 
 func TestCommentCRUD(t *testing.T) {
-	db := InitDB()
+	db := database.InitDB()
 	defer db.Close()
 
-	DB = db
+	database.DB = db
 
 	// Создаем тестового пользователя
 	user := &structs.User{
@@ -19,7 +20,7 @@ func TestCommentCRUD(t *testing.T) {
 		First_name: "Комментатор",
 		Last_name:  "НОМЕРОДИН",
 	}
-	userId, err := CreateUser(user)
+	userId, err := database.CreateUser(user)
 	if err != nil {
 		t.Errorf("Error creating user: %v", err)
 	}
@@ -33,7 +34,7 @@ func TestCommentCRUD(t *testing.T) {
 		DueDate:     time.Now(),
 	}
 
-	idTask, err := CreateTask(task)
+	idTask, err := database.CreateTask(task)
 	if err != nil {
 		t.Errorf("Error creating task: %v", err)
 	}
@@ -46,26 +47,26 @@ func TestCommentCRUD(t *testing.T) {
 		DueDate:     time.Now(),
 	}
 
-	commentID, err := CreateComment(comment)
+	commentID, err := database.CreateComment(comment)
 	if err != nil {
 		t.Errorf("Error creating comment: %v", err)
 	}
 
 	// Тестируем обновление комментария
 	comment.Description = "Это комменатрий обновлен, но его удалят!"
-	err = UpdateComment(commentID, comment)
+	err = database.UpdateComment(commentID, comment)
 	if err != nil {
 		t.Errorf("Error updating comment: %v", err)
 	}
 
 	comment.Description = "Это комменатрий не должен быть удален"
-	_, err = CreateComment(comment)
+	_, err = database.CreateComment(comment)
 	if err != nil {
 		t.Errorf("Error creating comment: %v", err)
 	}
 
 	// Тестируем удаление комментария
-	err = DeleteComment(commentID)
+	err = database.DeleteComment(commentID)
 	if err != nil {
 		t.Errorf("Error deleting comment: %v", err)
 	}
