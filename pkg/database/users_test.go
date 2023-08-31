@@ -21,7 +21,7 @@ func TestUserCRUD(t *testing.T) {
 		First_name: "John",
 		Last_name:  "Doe",
 	}
-	err := database.CreateUser(user)
+	userId, err := database.CreateUser(user)
 	if err != nil {
 		t.Errorf("Error creating user: %v", err)
 	}
@@ -29,7 +29,7 @@ func TestUserCRUD(t *testing.T) {
 	// Тест обновления пользователя
 	user.First_name = "Jane"
 	user.Last_name = "Smith"
-	err = database.UpdateUser(user)
+	err = database.UpdateUser(userId, user)
 	if err != nil {
 		t.Errorf("Error updating user: %v", err)
 	}

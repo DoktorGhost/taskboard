@@ -19,11 +19,11 @@ CREATE TABLE IF NOT EXISTS user_roles (
 
 CREATE TABLE IF NOT EXISTS tasks (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(100) NOT NULL,
+    title VARCHAR(200) NOT NULL,
     description TEXT,
-    priority VARCHAR(20),
+    priority VARCHAR(30),
     due_date TIMESTAMP,
-    status VARCHAR(20)
+    status VARCHAR(30)
 );
 
 CREATE TABLE IF NOT EXISTS comments (
